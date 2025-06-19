@@ -13,9 +13,12 @@ app.use(express.json());
 
 // Home Route
 app.get('/', (req,res) => {
-console.log("Route hit")
-  res.send("<h1> Welcome to Adopt-a-pet Express</h1>");
+    console.log("Redirecting to /api/pets");
+    res.redirect('/api/pets');
 });
+
+
+
 
 
 

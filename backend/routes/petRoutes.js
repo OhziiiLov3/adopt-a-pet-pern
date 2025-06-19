@@ -1,14 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const petsControlller = require('../controllers/petController');
+// const petsControlller = require('../controllers/petController');
+const petsCtrl = require('../controllers/petCtrl');
 
 
 
-router.get('/', petsControlller.getPets);
-router.get('/:petId', petsControlller.getPetById);
-router.post('/', petsControlller.createPet);
-router.put('/:petId', petsControlller.updatePet);
-router.delete('/:petId', petsControlller.deletePet);
+router.get('/', petsCtrl.findAllPets);
+router.get('/:petId', petsCtrl.findPetById);
+router.post('/', petsCtrl.createPet);
+router.put('/:petId', petsCtrl.updatedPet);
+// router.delete('/:petId', petsControlller.deletePet);
 
 
 

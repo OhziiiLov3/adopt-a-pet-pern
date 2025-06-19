@@ -29,12 +29,12 @@ let pets = [
 
 console.log(pets);
 
-//  Get All Pets
+//  Get All Pets - READ
 const getPets = (req, res) => {
   res.json(pets);
 };
 
-// Get petById
+// Get petById - READ ONE PET
 const getPetById = (req, res) => {
   const petId = parseInt(req.params.petId);
   const pet = pets.find((pet) => pet.id === petId);
@@ -45,7 +45,7 @@ const getPetById = (req, res) => {
   }
 };
 
-// Create pet
+// Create pet - CREATE 
 const createPet = (req, res) => {
   const { name, type, breed, age, description } = req.body;
 
@@ -62,7 +62,7 @@ const createPet = (req, res) => {
   res.status(201).json(newPet);
 };
 
-// update pet 
+// update pet - UPDATE
 
 const updatePet = (req, res) =>{
     const petId = parseInt(req.params.petId);
@@ -82,7 +82,7 @@ const updatePet = (req, res) =>{
 };
 
 
-// delete pet 
+// delete pet - DELETE
 const deletePet = (req, res) =>{
 const  petId = parseInt(req.params.petId);
 const petIndex = pets.findIndex(pet => pet.id === petId);
