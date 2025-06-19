@@ -9,7 +9,7 @@ router.get('/', petsCtrl.findAllPets);
 router.get('/:petId', petsCtrl.findPetById);
 router.post('/', petsCtrl.createPet);
 router.put('/:petId', petsCtrl.updatedPet);
-// router.delete('/:petId', petsControlller.deletePet);
+router.delete('/:petId', petsCtrl.deletePet);
 
 
 

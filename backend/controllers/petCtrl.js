@@ -75,7 +75,26 @@ const updatedPet = async (req, res) =>{
     } catch (error) {
       res.status(500).json({error: error.message})
     }
+};
+
+// DELETE - DELETE Pet ->  /pets/:petId
+
+const deletePet = async (req, res)=>{
+const {petId} = req.params;
+try {
+    const deletePet = await prisma.pet.delete({
+        where: {
+            id: parseInt(petId)
+        }
+    });
+    res.json({
+        message: "Pet deleted successfully",
+        deletePet
+    });
+} catch (error) {
+    res.status(500).json({error: error.message})
 }
+};
 
 
 
@@ -84,5 +103,6 @@ module.exports = {
 findAllPets,
 createPet,
 findPetById,
-updatedPet
+updatedPet,
+deletePet
 }
