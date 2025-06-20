@@ -4,6 +4,11 @@ const prisma = new PrismaClient();
 
 // CREATE -> POST /pets
 const createPet = async (req, res)=>{
+  if (!req.body) {
+    return res.status(400).json({ error: "Request body is missing." });
+  }
+
+
  const {name, type, breed, age, description} = req.body;
  
  if(!name || !type || !breed || !age || !description){
@@ -13,11 +18,11 @@ const createPet = async (req, res)=>{
  try {
     const pet = await prisma.pet.create({
         data: {
-            name,
-            type,
-            breed,
-            age,
-            description
+          name: name.trim(),
+          type: type.trim(),
+          breed: breed.trim(),
+          age: parseInt(age),
+          description: description.trim()
         }
     });
     res.status(201).json(pet)
