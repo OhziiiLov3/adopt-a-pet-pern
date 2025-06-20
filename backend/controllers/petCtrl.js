@@ -28,15 +28,44 @@ const createPet = async (req, res)=>{
 };
 
 // READ -> GET /pets
-const findAllPets = async (req, res)=>{
+// const findAllPets = async (req, res)=>{
+//  try {
+//     const pets = await prisma.pet.findMany();
+//     // console.log(pets);
+//     res.json(pets)
+//  } catch (error) {
+//     res.status(500).json({error: error.message})
+//  }
+// };
+
+
+// READ ->GET /pets?type=dog&breed=labrador (filtering via query parameters )
+
+const findAllPets = async (req, res) =>{
+ const {type, breed, age} = req.query;
+ 
+const filters = {};
+
+if(type) filters.type = type;
+
+if(breed){
+    filters.breed = {
+        contains: breed,
+        mode: 'insensitive'
+    }
+}
+if(age) filters.age = parseInt(age);
+
  try {
-    const pets = await prisma.pet.findMany();
-    // console.log(pets);
-    res.send(pets)
+    const pets = await prisma.pet.findMany({
+        where: filters
+    })
+    res.json(pets)
  } catch (error) {
     res.status(500).json({error: error.message})
  }
 };
+
 
 
 // READ ONE -> GET By id /pets/:petId
@@ -47,7 +76,7 @@ const findPetById = async (req, res) =>{
         where: { id: parseInt(petId)},
     });
     if(!pet) return res.status(404).json({error: "Product not found"});
-    res.send(pet);
+    res.json(pet);
   } catch (error) {
     res.status(500).json({error: error.message})
   }
@@ -71,7 +100,7 @@ const updatedPet = async (req, res) =>{
         }
       });
      
-      res.send(updatedPet);
+      res.json(updatedPet);
     } catch (error) {
       res.status(500).json({error: error.message})
     }
